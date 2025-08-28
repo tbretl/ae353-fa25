@@ -15,7 +15,7 @@ dependencies:
   - pip
   - git
   - playsound
-  - imagemagick
+  # - imagemagick # <-- removed because of a conflict with windows
   - pip:
     - git+https://github.com/meshcat-dev/meshcat-python.git
 
