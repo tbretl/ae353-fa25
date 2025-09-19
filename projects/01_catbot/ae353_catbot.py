@@ -124,8 +124,8 @@ class Simulator:
                     spinningFriction=1.0,
                     rollingFriction=0.0,
                     restitution=0.5,
-                    contactDamping=-1, #1000., #-1,
-                    contactStiffness=-1, #30000., #-1,
+                    contactDamping=-1,
+                    contactStiffness=-1,
                     linearDamping=0.,
                     angularDamping=0.,
                 )
@@ -141,6 +141,8 @@ class Simulator:
         # Initialize meshcat if necessary
         if self.display_meshcat:
             self.meshcat_init()
+        else:
+            self.vis = None
 
         # Set default camera view
         self.camera_sideview()
@@ -838,3 +840,13 @@ class Simulator:
         self.vis['cat_target'].set_transform(
             meshcat.transformations.translation_matrix([self.cat_target, 0., 0.]),
         )
+    
+    def display_on(self):
+        self.display_meshcat = True
+        if self.vis is None:
+            self.meshcat_init()
+            self.camera_sideview()
+    
+    def display_off(self):
+        self.display_meshcat = False
+
