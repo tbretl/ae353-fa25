@@ -840,3 +840,12 @@ class Simulator:
         T = meshcat.transformations.translation_matrix([0.2, 0., 0.7])
         R = meshcat.transformations.rotation_matrix(np.pi / 2, [0., 0., 1.])
         self.vis['robot']['cat-pilot'].set_transform(Rx @ S @ T @ R)
+    
+    def display_on(self):
+        self.display_meshcat = True
+        if self.vis is None:
+            self.meshcat_init()
+            self.camera_launchview()
+    
+    def display_off(self):
+        self.display_meshcat = False
