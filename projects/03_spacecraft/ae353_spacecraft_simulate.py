@@ -169,6 +169,8 @@ class Simulator:
         # Initialize meshcat if necessary
         if self.display_meshcat:
             self.meshcat_init()
+        else:
+            self.vis = None
 
         # Set default camera view
         self.camera_sideview()
@@ -219,14 +221,14 @@ class Simulator:
             torque_3_command,
             torque_4_command,
         ):
-        if not np.isscalar(torque_1_command):
-            raise Exception('torque_1_command must be a scalar')
-        if not np.isscalar(torque_2_command):
-            raise Exception('torque_2_command must be a scalar')
-        if not np.isscalar(torque_3_command):
-            raise Exception('torque_3_command must be a scalar')
-        if not np.isscalar(torque_4_command):
-            raise Exception('torque_4_command must be a scalar')
+        if not (np.isscalar(torque_1_command) and np.isreal(torque_1_command) and np.isfinite(torque_1_command)):
+            raise Exception('torque_1_command must be a real-valued and finite scalar')
+        if not (np.isscalar(torque_2_command) and np.isreal(torque_2_command) and np.isfinite(torque_2_command)):
+            raise Exception('torque_2_command must be a real-valued and finite scalar')
+        if not (np.isscalar(torque_3_command) and np.isreal(torque_3_command) and np.isfinite(torque_3_command)):
+            raise Exception('torque_3_command must be a real-valued and finite scalar')
+        if not (np.isscalar(torque_4_command) and np.isreal(torque_4_command) and np.isfinite(torque_4_command)):
+            raise Exception('torque_4_command must be a real-valued and finite scalar')
         
         torque_1 = np.clip(torque_1_command, -self.tau_max, self.tau_max)
         torque_2 = np.clip(torque_2_command, -self.tau_max, self.tau_max)
